@@ -1,0 +1,14 @@
+FROM node:alpine
+
+WORKDIR /app
+
+COPY package.json ./
+
+RUN npm install
+
+# Trying to fix permission error on node_modules
+RUN chown -R node node_modules/ && chgrp -R node node_modules/
+
+COPY . .
+
+CMD ["npm", "run", "start"]
